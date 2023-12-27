@@ -8,8 +8,8 @@ const IMAGE_HEIGHT = 224;
 
 const NUM_CLASSES = 5;
 
-const testDir = './DATASET/TEST'; // Replace with "./DATASET/TEST" for real run
-const trainDir = './DATASET/TRAIN'; // Replace with "./DATASET/TRAIN" for real run
+const testDir = './PSEUDO_DS/TEST'; // Replace with "./DATASET/TEST" for real run
+const trainDir = './PSEUDO_DS/TRAIN'; // Replace with "./DATASET/TRAIN" for real run
 
 const classNames = ['downdog', 'goddess', 'plank', 'tree', 'warrior2'];
 
@@ -27,15 +27,15 @@ async function loadImagesAndLabels(directory) {
                 const buffer = fs.readFileSync(filePath);
                 const decodedImage = tf.node.decodeImage(buffer);
             
-                // const reshapedImage = tf.tidy(() => {
-                //     if (decodedImage.shape[2] === 4) {
-                //         // If the image has 4 channels (RGBA), remove the alpha channel
-                //         return decodedImage.slice([0, 0, 0], [-1, -1, 3]);
-                //     } else {
-                //         return decodedImage;
-                //     }
-                // });
-                const reshapedImage = tf.div(decodedImage, 255);
+                const rgbImage = tf.tidy(() => {
+                    if (decodedImage.shape[2] === 4) {
+                        // If the image has 4 channels (RGBA), remove the alpha channel
+                        return decodedImage.slice([0, 0, 0], [-1, -1, 3]);
+                    } else {
+                        return decodedImage;
+                    }
+                });
+                const reshapedImage = tf.div(rgbImage, 255);
                 const resizedImage = tf.image.resizeBilinear(reshapedImage, [IMAGE_WIDTH, IMAGE_HEIGHT]); 
 
                 // const resizedImageArray = resizedImageTensor.data();
