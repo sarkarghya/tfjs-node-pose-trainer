@@ -1,0 +1,22 @@
+{
+  "name": "tfjs-node-pose-trainer",
+  "version": "1.0.0",
+  "description": "A sample TensorFlow.js and Node.js project",
+  "main": "main.js",
+  "license": "Apache-2.0",
+  "private": true,
+  "engines": {
+    "node": ">=8.11.0"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs-node": "^3.14.0",
+    "fs": "^0.0.1-security"
+  },
+  "scripts": {
+    "train": "node main.js"
+  },
+  "devDependencies": {
+    "clang-format": "~1.2.2"
+  },
+  "author": "sarkarghya <arghya@nyu.edu>"
+}
