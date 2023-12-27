@@ -1,6 +1,5 @@
 // Description: This file contains the code to load the data from the file system and convert it into tensors.
 
-const { tensor1d } = require('@tensorflow/tfjs-node');
 const tf = require('@tensorflow/tfjs-node');
 const fs = require('fs');
 
@@ -57,7 +56,7 @@ async function loadImagesAndLabels(directory) {
 
         const classLabels = [...Array.from({ length: files.length })].map(x => Array(NUM_CLASSES).fill(0));
         classLabels.forEach((label) => label[classIndex]=1);
-        classLabels.forEach((label) => labels.push(tensor1d(label)));
+        classLabels.forEach((label) => labels.push(tf.tensor1d(label)));
         // const classLabelTensor = tf.tensor2d(classLabels, [files.length, NUM_CLASSES]);
         // labels.push(...classLabelTensor);
     });
