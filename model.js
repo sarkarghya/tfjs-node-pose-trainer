@@ -2,10 +2,6 @@
 
 const tf = require('@tensorflow/tfjs-node');
 
-
-const BATCH_SIZE = 16;
-const NUM_EPOCHS = 50;
-
 const IMAGE_WIDTH = 224;
 const IMAGE_HEIGHT = 224;
 const NUM_CLASSES = 5;
@@ -48,11 +44,6 @@ const createModel = async () => {
         units: NUM_CLASSES,
         activation: 'softmax'
     }));
-  
-    return model;
-};
-
-const trainModel = async (model, images, labels) => {
 
     const learningRate = 0.001;
     const optimizer = tf.train.adam(learningRate);
@@ -61,16 +52,10 @@ const trainModel = async (model, images, labels) => {
         loss: 'categoricalCrossentropy',
         metrics: ['accuracy']
     });
-
-    model.fit(images, labels, {
-        batchSize: BATCH_SIZE,
-        epochs: NUM_EPOCHS,
-        shuffle: true
-    });
-
+  
+    return model;
 };
 
 module.exports = {
-    createModel,
-    trainModel  
+    createModel
 };
